@@ -23,7 +23,7 @@ public abstract class HolderAdapter<T> extends CommonAdapter<T> implements ViewH
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         BaseViewHolder<T> hv = BaseViewHolder.fetch(convertView, parent, position, HolderAdapter.this);
-        return hv.fillData(position, getData(position));
+        return hv.fillData(this, position, getData(position));
     }
 
     @Override

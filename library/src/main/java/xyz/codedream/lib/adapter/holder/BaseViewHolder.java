@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import java.lang.reflect.Constructor;
 
+import xyz.codedream.lib.adapter.HolderAdapter;
+
 /**
  * View Holder
  *
@@ -19,6 +21,7 @@ public abstract class BaseViewHolder<D> {
     protected ViewGroup parent;
     protected D data;
     protected int position;
+    protected HolderAdapter<D> adapter;
 
     public BaseViewHolder() {
     }
@@ -53,7 +56,8 @@ public abstract class BaseViewHolder<D> {
         return rootView;
     }
 
-    public final View fillData(int position, D data) {
+    public final View fillData(HolderAdapter<D> adapter, int position, D data) {
+        this.adapter = adapter;
         this.position = position;
         this.data = data;
         onDataChanged(position, data);
@@ -74,6 +78,22 @@ public abstract class BaseViewHolder<D> {
         holder.create(parent.getContext(), parent);
         holder.getView().setTag(holder);
     }
+
+    protected HolderAdapter<D> getAdapter() {
+        return adapter;
+    }
+
+    public void bindClick(View clickView, int position) {
+        bindClick(clickView, position, null);
+    }
+
+    public void bindClick(View clickView, int position, Integer action) {
+        if (adapter == null) {
+            throw new RuntimeException("can't bind click before ViewHolder attached to adater");
+        }
+        adapter.bindClick(clickView, position, action);
+    }
+
 
     public static BaseViewHolder<?> createHolderByClass(Class<? extends BaseViewHolder> clz, Object clzParent) {
         try {

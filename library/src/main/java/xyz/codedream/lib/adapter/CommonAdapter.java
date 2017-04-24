@@ -14,9 +14,6 @@ import java.util.List;
  * @author skg
  */
 public abstract class CommonAdapter<Data> extends BaseAdapter {
-
-    public static final int CLICK_ACTION_ITEM = -1;
-    public static final int _CLICK_ACTION_START = CLICK_ACTION_ITEM + 1;
     protected List<Data> mData;
 
     @Override
@@ -66,11 +63,11 @@ public abstract class CommonAdapter<Data> extends BaseAdapter {
     public static final int TAG_KEY_POSITION = Integer.MIN_VALUE / 2;
     public static final int TAG_KEY_ACTION = TAG_KEY_POSITION - 1;
 
-    protected void bindClick(View clickView, int position) {
+    public void bindClick(View clickView, int position) {
         bindClick(clickView, position, null);
     }
 
-    protected void bindClick(View clickView, int position, Integer action) {
+    public void bindClick(View clickView, int position, Integer action) {
         clickView.setOnClickListener(onClickListener);
         clickView.setTag(TAG_KEY_POSITION, position);
         clickView.setTag(TAG_KEY_ACTION, action);
@@ -82,7 +79,7 @@ public abstract class CommonAdapter<Data> extends BaseAdapter {
             if (mOnItemClickListener != null) {
                 int positon = (int) v.getTag(TAG_KEY_POSITION);
                 Object actionObj = v.getTag(TAG_KEY_ACTION);
-                int action = CLICK_ACTION_ITEM;
+                int action = 0;
                 if (actionObj != null) {
                     action = (int) actionObj;
                 }

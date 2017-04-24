@@ -1,5 +1,5 @@
-    //Adapter原始写法
-    CommonAdapter commonAdapter = new CommonAdapter() {
+//Adapter原始写法
+CommonAdapter commonAdapter = new CommonAdapter() {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -20,22 +20,22 @@
         class ViewHolder {
             TextView tv;
         }
-    };
+};
 
-    //----end
+//----end
 
 
-    //Adapter Holder写法
-    HolderAdapter<Object> holderAdapter = new HolderAdapter<Object>() {
+//Adapter Holder写法
+HolderAdapter<Object> holderAdapter = new HolderAdapter<Object>() {
 
         @Override
         public BaseViewHolder<?> createViewHolder(int position) {
             return new ViewHolder();
         }
 
-    };
+};
 
-    class ViewHolder extends BaseViewHolder<Object> {
+class ViewHolder extends BaseViewHolder<Object> {
         TextView tv;
 
         @Override
@@ -48,15 +48,14 @@
         protected void onDataChanged(int position, Object data) {
             tv.setText(getData().toString());
         }
-    }
+}
+//--end
 
-    //--end
+//Adapter Holder简单写法
+SimpleHolderAdapter<Object> simpleHolderAdapter = SimpleHolderAdapter.adapter(ViewHolder.class,this,mData);
+//--end
 
-    //Adapter Holder简单写法
-    SimpleHolderAdapter<Object> simpleHolderAdapter = SimpleHolderAdapter.adapter(ViewHolder.class, this, mData);
-    //--end
-
- private ArrayList<Object> mData = new ArrayList<>();
+private ArrayList<Object> mData = new ArrayList<>();
     {
         for (int i = 0; i < 20; i++) {
             mData.add("item " + i);
